@@ -1,0 +1,6 @@
+<archetype>
+  <id></id>
+  <sources>
+    <source>src/main/java/HelloWorldResource.java</source>
+  </sources>
+</archetype>

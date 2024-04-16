@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <property name="LOGGING_LOGS_HOME" value="${LOGS_HOME:-/tmp/logs}"/>
+    <property name="LOGGING_API_FILE_NAME" value="${LOGGING_API_FILE_NAME:-api.log}"/>
+    <property name="LOGGING_EXCEPTIONS_FILE_NAME" value="${LOGGING_EXCEPTIONS_FILE_NAME:-exceptions.log}"/>
+
+    <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="LOGGING_API_FILE_APPENDER">
+        <file>${LOGGING_LOGS_HOME}/${LOGGING_API_FILE_NAME}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%msg%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGGING_LOGS_HOME}/${LOGGING_API_FILE_NAME}.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+    <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="LOGGING_EXCEPTIONS_FILE_APPENDER">
+        <file>${LOGGING_LOGS_HOME}/${LOGGING_EXCEPTIONS_FILE_NAME}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger - %msg%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGGING_LOGS_HOME}/${LOGGING_EXCEPTIONS_FILE_NAME}.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.edriving.restboot.jersey.logging.RequestLoggingFilter" additivity="false">
+        <appender-ref ref="LOGGING_API_FILE_APPENDER"/>
+    </logger>
+    <logger name="com.edriving.restboot.jersey.logging.ExceptionLoggingListener" additivity="false">
+        <appender-ref ref="LOGGING_EXCEPTIONS_FILE_APPENDER"/>
+    </logger>
+
+</included>

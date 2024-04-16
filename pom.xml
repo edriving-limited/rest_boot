@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.edriving.commons</groupId>
-    <artifactId>rest-boot</artifactId>
-    <version>2.0.1</version>
-    <packaging>jar</packaging>
+    <artifactId>rest-boot-project</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>Rest Boot</name>
     <description>Rest Boot is a lightweight REST framework that uses Jersey, Jetty, and JAX-RS. It's designed to help you quickly build production-grade APIs with minimal effort.</description>
@@ -35,152 +35,72 @@
             <organization>eDriving</organization>
             <organizationUrl>https://www.edriving.com</organizationUrl>
         </developer>
+        <developer>
+            <name>Sean Zeng</name>
+            <email>sean.zeng@edriving.com</email>
+            <organization>eDriving</organization>
+            <organizationUrl>https://www.edriving.com</organizationUrl>
+        </developer>
     </developers>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <jersey.version>3.1.1</jersey.version>
-        <jetty.version>11.0.15</jetty.version>
-        <json.gson.version>2.10.1</json.gson.version>
-    </properties>
+    <modules>
+        <module>rest-boot-parent</module>
+        <module>rest-boot-bom</module>
 
-    <dependencies>
-        <!--support for Java 11+ -->
-        <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <!--web service interface-->
-        <!-- https://mvnrepository.com/artifact/jakarta.ws.rs/jakarta.ws.rs-api -->
-        <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <!--web service implementation -->
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-jetty-http</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-multipart</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${json.gson.version}</version>
-        </dependency>
-        <!--web server -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>${jetty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>${jetty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>${jetty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+        <module>rest-boot-inject</module>
+        <module>rest-boot-config</module>
+        <module>rest-boot-core</module>
+        <module>rest-boot-http-server</module>
+        <module>rest-boot-http-server-jetty</module>
+        <module>rest-boot-http-serverless</module>
+        <module>rest-boot-jersey</module>
+        <module>rest-boot-serde-gson</module>
+        <module>rest-boot-serde-jackson</module>
+        <module>rest-boot-runtime</module>
+        <module>rest-boot-health</module>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+        <module>rest-boot-example</module>
+        <module>rest-boot-classic</module>
+        <module>rest-boot-archetypes</module>
+    </modules>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOGS_HOME" value="${LOGS_HOME:-${HOME}/app/logs}}"/>
+
+    <property name="LOGGING_API_FILE_NAME" value="api-${HOSTNAME}.log"/>
+    <property name="LOGGING_EXCEPTIONS_FILE_NAME" value="exceptions-${HOSTNAME}.log"/>
+    <property name="LOGGING_CONSOLE_FILE_NAME" value="console-${HOSTNAME}.log"/>
+
+    <include resource="com/edriving/restboot/logging/logback.xml"/>
+
+    <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="LOGGING_CONSOLE_FILE_APPENDER">
+        <file>${LOGS_HOME}/${LOGGING_CONSOLE_FILE_NAME}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_HOME}/${LOGGING_CONSOLE_FILE_NAME}.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="LOGGING_CONSOLE_FILE_APPENDER"/>
+    </root>
+</configuration>
