@@ -74,7 +74,7 @@ public class GsonMessageBodyHandler implements MessageBodyWriter<Object>, Messag
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
-                .registerTypeAdapter(ZoneId.class, new ZonedIdAdapter())
+                .registerTypeHierarchyAdapter(ZoneId.class, new ZonedIdAdapter())
                 .registerTypeAdapter(Instant.class, new InstantAdapter());
 
         if (Boolean.parseBoolean(System.getProperty(GSON_PRETTY_PRINTING_PROPERTY))) {
